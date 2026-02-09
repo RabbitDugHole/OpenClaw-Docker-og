@@ -30,7 +30,7 @@ echo -e "${YELLOW}版本号: ${VERSION}${NC}"
 
 # 检查是否已登录 ghcr.io
 echo -e "${YELLOW}检查 ghcr.io 登录状态...${NC}"
-if ! docker info 2>/dev/null | grep -q "ghcr.io"; then
+if ! docker login ghcr.io 2>/dev/null | grep -iq "Login Succeeded"; then
     echo -e "${YELLOW}请先登录 ghcr.io:${NC}"
     echo -e "${YELLOW}docker login ghcr.io -u <GITHUB_USERNAME> -p <GITHUB_TOKEN>${NC}"
     read -p "是否现在登录? (y/n) " -n 1 -r
@@ -50,8 +50,8 @@ fi
 read -p "请输入 GitHub 用户名 [justlovemaki]: " GITHUB_USERNAME
 GITHUB_USERNAME=${GITHUB_USERNAME:-justlovemaki}
 
-read -p "请输入仓库名 [openclaw-docker-cn-im]: " REPO_NAME
-REPO_NAME=${REPO_NAME:-openclaw-docker-cn-im}
+read -p "请输入仓库名 [openclaw-docker-og]: " REPO_NAME
+REPO_NAME=${REPO_NAME:-openclaw-docker-og}
 
 # 清理输入并转换为小写（ghcr.io 要求小写）
 GITHUB_USERNAME_LOWER=$(echo "$GITHUB_USERNAME" | xargs | tr 'A-Z' 'a-z')
